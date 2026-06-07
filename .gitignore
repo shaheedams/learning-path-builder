@@ -1,0 +1,29 @@
+# Build artifacts
+**/target/
+**/dist/
+**/.angular/
+**/node_modules/
+
+# Database files
+**/backend/data/
+*.mv.db
+
+# Zip packages
+*.zip
+
+# IDE configurations
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Antigravity logs & temp
+.gemini/
+*.log
