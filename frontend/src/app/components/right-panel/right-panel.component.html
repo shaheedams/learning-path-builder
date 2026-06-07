@@ -1,0 +1,342 @@
+<div class="properties-panel">
+  @if (stateService.selectedNode(); as node) {
+  <!-- Selected Node details -->
+  <div class="panel-section">
+    <div class="section-header-row">
+      <h2 class="section-title">Properties</h2>
+      @if (node.type !== 'start' && node.type !== 'end') {
+      <button (click)="onDeleteNode(node.id)" class="delete-btn" title="Delete component">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          class="trash-icon"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-9.158c0-.517-.417-.917-.917-.917H9.25c-.5 0-.917.4-.917.917v9.158"
+          />
+        </svg>
+      </button>
+      }
+    </div>
+    <div class="type-badge">
+      {{ node.type | titlecase }}
+    </div>
+    <div class="divider"></div>
+    <div class="form-group">
+      <label for="nodeLabel">Label</label>
+      <input
+        type="text"
+        id="nodeLabel"
+        [value]="node.label"
+        (input)="onNodeLabelChange(node, $event)"
+        class="text-input"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="nodeDesc">Description</label>
+      <textarea
+        id="nodeDesc"
+        rows="3"
+        [value]="node.description || ''"
+        (input)="onNodeDescChange(node, $event)"
+        class="text-input"
+      ></textarea>
+    </div>
+
+    @if (node.type !== 'start' && node.type !== 'end') {
+    <div class="form-group">
+      <label for="nodeDuration">Approximate Duration (minutes)</label>
+      <input
+        type="number"
+        id="nodeDuration"
+        [value]="node.config?.approximateDurationMinutes || 0"
+        (input)="onNodeDurationChange(node, $event)"
+        class="text-input"
+      />
+    </div>
+    } @if (node.type === 'unit') {
+    <!-- Unit properties -->
+    <div class="form-group">
+      <label for="nodeRecommendedMinutes">Recommended Minutes</label>
+      <input
+        type="number"
+        id="nodeRecommendedMinutes"
+        [value]="node.config?.unit?.recommendedMinutes || 0"
+        (input)="onNodeRecMinutesChange(node, $event)"
+        class="text-input"
+      />
+    </div>
+    } @if (node.type === 'assessment') {
+    <!-- Assessment properties -->
+    <div class="form-row">
+      <div class="form-group flex-1">
+        <label for="nodeMaxScore">Max Score</label>
+        <input
+          type="number"
+          id="nodeMaxScore"
+          [value]="node.config?.assessment?.maxScore || 100"
+          (input)="onNodeScoresChange(node, 'max', $event)"
+          class="text-input"
+        />
+      </div>
+      <div class="form-group flex-1">
+        <label for="nodePassScore">Passing Score</label>
+        <input
+          type="number"
+          id="nodePassScore"
+          [value]="node.config?.assessment?.passingScore || 50"
+          (input)="onNodeScoresChange(node, 'passing', $event)"
+          class="text-input"
+        />
+      </div>
+    </div>
+    }
+  </div>
+  } @else if (stateService.selectedEdge(); as edge) {
+  <!-- Selected Edge config -->
+  <div class="panel-section">
+    <div class="section-header-row">
+      <h2 class="section-title">Connection Properties</h2>
+      <button (click)="onDeleteEdge(edge.id)" class="delete-btn" title="Delete connection link">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          class="trash-icon"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-9.158c0-.517-.417-.917-.917-.917H9.25c-.5 0-.917.4-.917.917v9.158"
+          />
+        </svg>
+      </button>
+    </div>
+    <p class="section-subtitle">Define validation rules for this traversal link.</p>
+    <div class="divider"></div>
+    <div class="form-group">
+      <label for="edgeLabel">Connection Label</label>
+      <input
+        type="text"
+        id="edgeLabel"
+        [value]="edge.label || ''"
+        (input)="onEdgeChange(edge, 'label', $event)"
+        class="text-input"
+      />
+    </div>
+
+    <div class="form-row">
+      <div class="form-group flex-1">
+        <label for="edgePriority">Priority Order</label>
+        <input
+          type="number"
+          id="edgePriority"
+          min="1"
+          [value]="edge.priority || 1"
+          (input)="onEdgeChange(edge, 'priority', $event)"
+          class="text-input"
+          [disabled]="edge.isDefault || false"
+        />
+      </div>
+      <div class="form-group checkbox-group flex-1">
+        <label class="checkbox-label">
+          <input
+            type="checkbox"
+            [checked]="edge.isDefault"
+            (change)="onEdgeChange(edge, 'isDefault', $event)"
+          />
+          <span>Default Fallback Path</span>
+        </label>
+      </div>
+    </div>
+
+    @if (!edge.isDefault) {
+    <div class="divider"></div>
+
+    <!-- Rules Editor Section -->
+    <h3 class="subsection-title">Conditional Logic</h3>
+    <div class="form-group">
+      <label for="edgeOperator">Operator Logic</label>
+      <select
+        id="edgeOperator"
+        [value]="edge.conditions.operator"
+        (change)="onEdgeChange(edge, 'operator', $event)"
+        class="select-input"
+      >
+        <option value="AND">AND (All rules must match)</option>
+        <option value="OR">OR (At least one rule must match)</option>
+      </select>
+    </div>
+
+    <!-- List of Added rules -->
+    <div class="rules-list">
+      @for (rule of edge.conditions.rules; track rule.id) {
+      <div class="rule-item">
+        <div class="rule-item-content">
+          <strong>{{ getSourceNodeLabel(rule.sourceNodeId) }}</strong>
+          <span>{{ rule.metric }}</span>
+          <span class="operator-badge">{{ rule.operator }}</span>
+          @if (rule.operator === 'between' && rule.range) {
+          <span>{{ rule.range.min }} - {{ rule.range.max }}</span>
+          } @else {
+          <span>{{ rule.value }}</span>
+          }
+        </div>
+        <button
+          (click)="deleteConditionRule(edge.id, rule.id)"
+          class="rule-delete-btn"
+          title="Remove rule"
+        >
+          x
+        </button>
+      </div>
+      } @empty {
+      <p class="empty-rules-msg">
+        No routing conditions added. This path will be active immediately.
+      </p>
+      }
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- New rule form -->
+    <h3 class="subsection-title">Add Transition Rule</h3>
+
+    <div class="form-group">
+      <label for="ruleSource">Source Node</label>
+      <select
+        id="ruleSource"
+        [(ngModel)]="ruleSourceId"
+        (change)="onSourceNodeChange()"
+        class="select-input"
+      >
+        <option value="" disabled selected>Select node...</option>
+        @for (source of getAvailableSources(); track source.id) {
+        <option [value]="source.id">{{ source.label }}</option>
+        }
+      </select>
+    </div>
+
+    @if (ruleSourceId) {
+    <div class="form-group">
+      <label for="ruleMetric">Target Metric</label>
+      <select
+        id="ruleMetric"
+        [(ngModel)]="ruleMetric"
+        (change)="onMetricChange()"
+        class="select-input"
+      >
+        @if (getSourceNodeTypeName() === 'assessment') {
+        <option value="completion">Completion Status</option>
+        <option value="passed">Passed Status</option>
+        <option value="score">Score</option>
+        <option value="score_range">Score Range</option>
+        } @else if (getSourceNodeTypeName() === 'unit') {
+        <option value="completion">Completion Status</option>
+        <option value="time_spent_minutes">Time Spent (min)</option>
+        <option value="percentage_completion">Percentage Completion</option>
+        }
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="ruleOperator">Compare Operator</label>
+      <select id="ruleOperator" [(ngModel)]="ruleOperator" class="select-input">
+        @if (ruleMetric === 'completion' || ruleMetric === 'passed') {
+        <option value="eq">Equals (==)</option>
+        <option value="ne">Not Equals (!=)</option>
+        } @else if (ruleMetric === 'score_range') {
+        <option value="between">Is Between</option>
+        } @else {
+        <option value="eq">Equals (==)</option>
+        <option value="ne">Not Equals (!=)</option>
+        <option value="gt">Greater Than (&gt;)</option>
+        <option value="gte">Greater or Equal (&gt;=)</option>
+        <option value="lt">Less Than (&lt;)</option>
+        <option value="lte">Less or Equal (&lt;=)</option>
+        <option value="between">Is Between</option>
+        }
+      </select>
+    </div>
+
+    <!-- Value parameters input fields -->
+    @if (ruleMetric === 'completion' || ruleMetric === 'passed') {
+    <div class="form-group">
+      <label class="checkbox-label">
+        <input type="checkbox" [(ngModel)]="ruleValueBool" />
+        <span>Assert True</span>
+      </label>
+    </div>
+    } @else if (ruleOperator === 'between') {
+    <div class="form-row">
+      <div class="form-group flex-1">
+        <label>Min Value</label>
+        <input type="number" [(ngModel)]="ruleRangeMin" class="text-input" />
+      </div>
+      <div class="form-group flex-1">
+        <label>Max Value</label>
+        <input type="number" [(ngModel)]="ruleRangeMax" class="text-input" />
+      </div>
+    </div>
+    } @else {
+    <div class="form-group">
+      <label>Threshold Value</label>
+      <input type="number" [(ngModel)]="ruleValueNum" class="text-input" />
+    </div>
+    }
+
+    <button (click)="addConditionRule(edge.id)" class="btn-add-rule">Add Condition Rule</button>
+    } }
+  </div>
+  } @else {
+  <!-- Default view: Path Meta editor -->
+  <div class="panel-section">
+    <h2 class="section-title">Path Configuration</h2>
+    <p class="section-subtitle">General settings for this adaptive layout.</p>
+
+    <div class="divider"></div>
+    <div class="form-group">
+      <label for="pathName">Path Name</label>
+      <input
+        type="text"
+        id="pathName"
+        [value]="stateService.currentPath().name"
+        (input)="updatePathMeta('name', $event)"
+        class="text-input"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="pathDesc">Description</label>
+      <textarea
+        id="pathDesc"
+        rows="4"
+        [value]="stateService.currentPath().description || ''"
+        (input)="updatePathMeta('description', $event)"
+        class="text-input"
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="pathStatus">Path Status</label>
+      <select
+        id="pathStatus"
+        [value]="stateService.currentPath().status"
+        (change)="updatePathMeta('status', $event)"
+        class="select-input"
+      >
+        <option value="draft">Draft</option>
+        <option value="published">Published</option>
+      </select>
+    </div>
+  </div>
+  }
+</div>

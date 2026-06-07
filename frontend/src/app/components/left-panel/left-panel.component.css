@@ -1,0 +1,270 @@
+.sidebar {
+  width: 320px;
+  height: calc(100vh - 70px);
+  background: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  overflow-y: auto;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+.panel-section {
+  padding: 24px;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.section-subtitle {
+  font-size: 12px;
+  color: #64748b;
+  margin: 6px 0 20px 0;
+  line-height: 1.4;
+}
+
+.component-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Placed component card style */
+.component-card {
+  display: flex;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  cursor: default;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.component-card:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.template-card {
+  cursor: grab;
+}
+
+.template-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+}
+
+.template-card:active {
+  cursor: grabbing;
+}
+
+.card-indicator {
+  width: 6px;
+}
+
+.card-unit .card-indicator {
+  background-color: #3b82f6; /* Blue indicator */
+}
+
+.card-assess .card-indicator {
+  background-color: #8b5cf6; /* Purple indicator */
+}
+
+.card-start .card-indicator {
+  background-color: #10b981; /* Green indicator */
+}
+
+.card-end .card-indicator {
+  background-color: #64748b; /* Slate indicator */
+}
+
+.card-content {
+  padding: 10px;
+  flex-grow: 1;
+}
+
+.card-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.badge {
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.badge-unit {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.badge-assess {
+  background: #faf5ff;
+  color: #7c3aed;
+}
+
+.badge-start {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.badge-end {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.duration {
+  font-size: 8px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.card-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 4px 0;
+}
+
+.card-desc {
+  font-size: 8px;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.empty-msg {
+  font-size: 12px;
+  color: #64748b;
+  text-align: center;
+  padding: 20px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  margin: 0;
+}
+
+/* Templates  */
+
+.template-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.template-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  cursor: grab;
+  transition: all 0.15s ease;
+}
+
+.template-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.template-card:active {
+  cursor: grabbing;
+}
+
+.icon-container {
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.blue-icon {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #2563eb;
+}
+
+.violet-icon {
+  background: #f5f3ff;
+  border: 1px solid #ddd6fe;
+  color: #8b5cf6;
+}
+
+.template-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.template-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.template-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+}
+
+.template-desc {
+  font-size: 10px;
+  color: #64748b;
+  margin: 2px 0 0 0;
+}
+
+/* Info Box */
+.info-box {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 24px;
+}
+
+.info-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #1e40af;
+}
+
+.info-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.info-title {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.info-list {
+  margin: 8px 0 0 0;
+  padding-left: 18px;
+  font-size: 11px;
+  color: #1e3a8a;
+  line-height: 1.2;
+}
+
+.info-list li {
+  margin-bottom: 4px;
+}
+
+.info-list li:last-child {
+  margin-bottom: 0;
+}
