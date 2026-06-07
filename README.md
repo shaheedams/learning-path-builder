@@ -54,7 +54,7 @@ np-learning-path-builder/
 
 ### 1. Repository Link
 
-- **URL**: [https://github.com/mohamed/np-learning-path-builder](https://github.com/mohamed/np-learning-path-builder)
+- **URL**: [https://github.com/shaheedams/learning-path-builder](https://github.com/shaheedams/learning-path-builder)
 
 ### 2. Time Spent
 
